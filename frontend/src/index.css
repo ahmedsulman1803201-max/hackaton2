@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50: #fff9e8;
+  --color-brand-100: #ffefbd;
+  --color-brand-200: #ffe08a;
+  --color-brand-300: #f8c95b;
+  --color-brand-400: #e8ad38;
+  --color-brand-500: #c98b1c;
+  --color-brand-600: #a96d11;
+  --color-brand-700: #7d4c0a;
+  --color-brand-800: #553205;
+  --color-brand-900: #2e1b03;
+
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+
+  --animate-fade-in: fade-in 0.35s ease-out;
+  --animate-scale-in: scale-in 0.2s ease-out;
+  --animate-slide-up: slide-up 0.3s ease-out;
+  --animate-float: float 5s ease-in-out infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes shimmer {
+    from { background-position: 200% center; }
+    to { background-position: -200% center; }
+  }
+}
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+body {
+  font-family: "Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  @apply bg-[#f7f6f2] text-slate-900 dark:bg-slate-950 dark:text-slate-100 antialiased;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+:root {
+  --ink: #101820;
+  --ink-soft: #1c2833;
+  --gold: #d5a329;
+  --gold-light: #f4d77f;
+  --paper: #f7f6f2;
+}
+
+/* Shared visual language: the same ink-and-gold palette introduced on the
+   landing screen now carries through dashboards, forms, and project pages. */
+.app-surface { background: linear-gradient(180deg, #fbfaf7 0%, #f4f1e9 100%); }
+.dark .app-surface { background: #020617; }
+.professional-card {
+  border: 1px solid rgba(213, 163, 41, .16);
+  box-shadow: 0 10px 28px rgba(16, 24, 32, .06);
+}
+
+.app-shell { min-height: 100vh; position: relative; isolation: isolate; }
+.app-ambient {
+  position: fixed; z-index: 0; inset: 0; pointer-events: none; overflow: hidden;
+  background: radial-gradient(circle at 8% 4%, rgba(213,163,41,.11), transparent 23%), radial-gradient(circle at 96% 16%, rgba(16,24,32,.07), transparent 26%);
+}
+.app-shell > :not(.app-ambient) { position: relative; z-index: 1; }
+.app-ambient::before, .app-ambient::after {
+  content: ""; position: absolute; width: 24rem; height: 24rem; border-radius: 999px; filter: blur(48px); opacity: .32;
+}
+.app-ambient::before { top: 28%; right: -11rem; background: #e8ad38; animation: drift 14s ease-in-out infinite; }
+.app-ambient::after { bottom: -12rem; left: -10rem; background: #c98b1c; animation: drift 17s ease-in-out infinite reverse; }
+.reveal-up { animation: reveal-up .65s cubic-bezier(.2,.75,.25,1) both; }
+.reveal-up-delay { animation: reveal-up .7s .14s cubic-bezier(.2,.75,.25,1) both; }
+.hero-grid { background-image: linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px); background-size: 42px 42px; }
+
+@keyframes drift { 0%, 100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-3rem,2rem,0) scale(1.12); } }
+@keyframes reveal-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
+
+.professional-page { background: var(--paper); color: var(--ink); }
+.professional-page .market-card {
+  background: #fff;
+  border: 1px solid #e9e3d5;
+  box-shadow: 0 12px 35px rgba(16, 24, 32, .07);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.professional-page .market-card:hover { transform: translateY(-7px); border-color: var(--gold-light); box-shadow: 0 20px 45px rgba(16,24,32,.14); }
+.professional-page .gold-line { width: 52px; height: 4px; border-radius: 999px; background: linear-gradient(90deg, #d5a329, #f4d77f); }
+.professional-page .hero-orb { filter: blur(1px); animation: float 6s ease-in-out infinite; }
+
+.market-grid {
+  background-image: linear-gradient(rgba(201, 139, 28, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 139, 28, .08) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+
+.gold-text {
+  background: linear-gradient(90deg, #ffe6a3, #c98b1c, #fff1c7, #c98b1c);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+* { scrollbar-color: theme(colors.slate.300) transparent; }
+html.dark * { scrollbar-color: theme(colors.slate.700) transparent; }
+
+::selection {
+  background-color: theme(colors.brand.200);
+  color: theme(colors.brand.900);
+}
