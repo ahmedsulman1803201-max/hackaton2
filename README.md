@@ -1,121 +1,441 @@
-# ImpactHub
+🌍 ImpactHub
 
-ImpactHub is a MERN community-impact platform that connects student volunteers with approved projects, structured task workflows, and measurable contribution outcomes.
+Student Project & Volunteer Management Platform
 
-## The problem
+ImpactHub is a full-stack web application designed to connect Students with meaningful projects and volunteer opportunities. The platform provides a centralized system where students can discover projects, apply to participate, complete assigned tasks, and submit their work.
 
-Students want meaningful, skill-building ways to contribute to their communities. Project managers need a reliable way to recruit volunteers, coordinate work, and demonstrate impact. ImpactHub brings those journeys into one secure, role-based product.
+The application includes a complete role-based system with three main user roles:
 
-## What it delivers
+- 👑 Admin
+- 👨‍💼 Manager
+- 🎓 Student
 
-- Public project discovery with search, filters, sorting, and responsive project details
-- JWT authentication with bcrypt password hashing and role-based access control
-- Student profiles, skills, city, applications, joined projects, tasks, notifications, and contribution scoring
-- Manager project creation, volunteer review, member-controlled task assignment, task tracking, and submission review
-- Admin user management, project moderation, and MongoDB-backed platform analytics
-- Community project comments, in-app notifications, file uploads, task submissions, and leaderboard scoring
+ImpactHub uses a real Frontend + Backend + REST API + MongoDB database architecture.
 
-## User roles
+---
 
-| Role | Main permissions |
-| --- | --- |
-| Student | Browse approved projects, apply, join project teams, update assigned work, submit deliverables, comment, and track contributions. |
-| Manager | Create and manage owned projects, approve or reject applicants, and assign/review project work. |
-| Admin | Moderate all projects, manage users, inspect applications, and view platform-level analytics. |
+🚀 How to Run the Project
 
-## Workflow
+💻 Run Frontend
 
-1. A manager creates a project, which enters `pending` moderation.
-2. An admin approves it; approved projects are available for volunteer applications.
-3. A student applies once per project. The manager approves or rejects the application.
-4. Approval adds the student to the project team and notifies them.
-5. A manager assigns work only to approved team members.
-6. The student updates progress and submits work; the manager reviews it.
-7. Approved work becomes completed and updates contribution scoring and notifications.
+Open the frontend folder in your terminal and run:
 
-## Stack and architecture
+npm i
+npm run dev
 
-- Frontend: React 19, Vite, React Router, Axios, Tailwind CSS, Recharts
-- Backend: Node.js, Express, Mongoose, JWT, bcrypt, Multer
-- Database: MongoDB
+After starting the development server, open the URL shown in your terminal in the browser.
 
-`frontend/` is the React client. `backend/` owns the REST API, database models, authorization, uploads, seeds, and tests. The client talks to the backend through `/api` locally or `VITE_API_URL` in deployment.
+---
 
-## Core database models
+⚙️ Run Backend
 
-`User`, `Project`, `Application`, `Task`, `TaskSubmission`, `Comment`, `Notification`, and `VolunteerScore`.
+Open the backend folder in your terminal and run:
 
-## Local setup
+npm i
+npx nodemon
 
-Prerequisites: Node.js 20+ and a running MongoDB instance (local or Atlas).
+The backend server will start and connect with the configured database.
 
-1. Create `backend/.env` from `backend/.env.example` and provide secure values:
+«Note: Depending on your backend configuration, you may need to run a specific entry file, such as "npx nodemon server.js" or "npx nodemon index.js".»
 
-```env
+---
+
+🛠️ Technology Stack
+
+Frontend
+
+- HTML5
+- CSS3
+- JavaScript
+- Modern frontend development tools
+
+Backend
+
+- Node.js
+- Express.js
+- RESTful APIs
+
+Database
+
+- MongoDB Atlas
+- MongoDB Compass
+
+Authentication & Security
+
+- JWT Authentication
+- Password Hashing
+- bcrypt
+- Role-Based Authorization
+
+---
+
+🗄️ Database
+
+This project uses MongoDB Atlas as the cloud database.
+
+The MongoDB database can also be accessed and managed using MongoDB Compass.
+
+The application backend is connected to MongoDB through the MongoDB connection configuration.
+
+User Roles
+
+The following roles are assigned to users in the MongoDB database:
+
+Admin
+Manager
+Student
+
+Role-based authorization ensures that every user can access only the features and actions allowed for their role.
+
+«⚠️»
+
+---
+
+👑 Admin Features
+
+The Admin is responsible for managing and controlling the overall platform.
+
+Admin can:
+
+- 👥 Manage users
+- 🔐 Manage user roles
+- 👨‍💼 Manage Managers
+- 🎓 Manage Students
+- 📁 Manage projects
+- ✅ Approve projects
+- ❌ Reject projects when necessary
+- 📊 Monitor platform activities
+- 🔔 Manage platform-level notifications
+- 📈 View platform information and analytics
+- 🛡️ Control and moderate the system
+
+Admin Workflow
+
+Manager Creates Project
+        ↓
+Admin Reviews Project
+        ↓
+Approve / Reject
+        ↓
+Approved Project Becomes Available
+
+---
+
+👨‍💼 Manager Features
+
+The Manager manages projects, student applications, and project tasks.
+
+Manager can:
+
+- ➕ Create projects
+- 📂 Manage their own projects
+- 👀 View student applications
+- ✅ Approve student applications
+- ❌ Reject student applications
+- 👥 Manage approved project members
+- 📋 Create and assign tasks
+- 📅 Set task deadlines
+- 📊 Monitor task progress
+- 📥 Review student submissions
+- 💬 Communicate and collaborate with project members
+
+Manager Workflow
+
+Create Project
+      ↓
+Admin Approves Project
+      ↓
+Students Apply
+      ↓
+Manager Reviews Applications
+      ↓
+Approve Students
+      ↓
+Assign Tasks
+      ↓
+Students Complete Tasks
+      ↓
+Students Submit Work
+      ↓
+Manager Reviews Submission
+
+---
+
+🎓 Student Features
+
+Students can discover projects and actively participate in them.
+
+Student can:
+
+- 🔐 Register and log in
+- 👤 Manage their profile
+- 🔎 Browse available projects
+- 📄 View project details
+- 📝 Apply for projects
+- 📊 Check application status
+- 👥 Join approved projects
+- 📋 View assigned tasks
+- ⏳ Track task deadlines
+- 📤 Submit completed work
+- 🔔 Receive notifications
+- 💬 Participate in project communication
+- 🏆 View achievements and progress
+
+Student Workflow
+
+Register / Login
+      ↓
+Browse Projects
+      ↓
+Apply to Project
+      ↓
+Manager Reviews Application
+      ↓
+Application Approved
+      ↓
+Student Joins Project
+      ↓
+Manager Assigns Task
+      ↓
+Student Completes Task
+      ↓
+Student Submits Work
+      ↓
+Manager Reviews Submission
+
+---
+
+🔄 Complete System Workflow
+
+ImpactHub provides a complete workflow between all three roles.
+
+                 👑 ADMIN
+                    │
+          Approves / Manages Projects
+                    │
+                    ▼
+              👨‍💼 MANAGER
+                    │
+              Creates Project
+                    │
+                    ▼
+             🎓 STUDENTS APPLY
+                    │
+                    ▼
+        Manager Approves Students
+                    │
+                    ▼
+             Students Join Project
+                    │
+                    ▼
+            Manager Assigns Tasks
+                    │
+                    ▼
+          Students Complete Tasks
+                    │
+                    ▼
+          Students Submit Their Work
+                    │
+                    ▼
+         Manager Reviews Submission
+                    │
+                    ▼
+              ✅ TASK COMPLETED
+
+---
+
+🔐 Authentication System
+
+ImpactHub implements authentication and authorization.
+
+The authentication system includes:
+
+- User registration
+- User login
+- Password hashing
+- JWT tokens
+- Protected routes
+- Role-based authorization
+
+The system restricts access according to the user's role.
+
+Example
+
+Admin    → Platform Management
+Manager  → Project & Task Management
+Student  → Project Participation & Task Submission
+
+---
+
+📡 REST API
+
+The backend provides REST APIs for communication between the frontend and backend.
+
+The APIs handle functionality such as:
+
+- Authentication
+- Users
+- Roles
+- Projects
+- Applications
+- Project members
+- Tasks
+- Submissions
+- Notifications
+- Comments
+- Dashboard data
+
+The frontend communicates with the backend through these APIs.
+
+---
+
+🧪 Testing
+
+The project should be tested before submission.
+
+Testing includes:
+
+- ✅ Frontend functionality
+- ✅ Backend APIs
+- ✅ Database connection
+- ✅ Authentication
+- ✅ Role authorization
+- ✅ Project creation
+- ✅ Project approval
+- ✅ Student applications
+- ✅ Application approval/rejection
+- ✅ Task assignment
+- ✅ Task submission
+- ✅ Complete workflow
+
+API endpoints can be tested using Thunder Client.
+
+---
+
+📁 Project Structure
+
+ImpactHub
+│
+├── Frontend
+│   ├── Components
+│   ├── Pages
+│   ├── Services
+│   └── Application UI
+│
+├── Backend
+│   ├── Controllers
+│   ├── Models
+│   ├── Routes
+│   ├── Middleware
+│   └── Server Configuration
+│
+└── README.md
+
+---
+
+⚙️ Environment Variables
+
+Create a ".env" file in the backend folder.
+
+Example:
+
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/impacthub
-JWT_SECRET=replace-with-a-long-random-secret
-CLIENT_ORIGIN=http://localhost:5173
-```
 
-2. Install and start the API:
 
-```bash
-cd backend
-npm install
-npm run seed:demo
-npm run dev
-```
 
-3. In a second terminal, install and start the frontend:
+---
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+🌟 Key Features
 
-The seed command creates fake demo data only. It does not run automatically.
+- ✅ Full-stack application
+- ✅ Separate frontend and backend
+- ✅ REST API architecture
+- ✅ MongoDB database
+- ✅ MongoDB Atlas integration
+- ✅ MongoDB Compass support
+- ✅ JWT authentication
+- ✅ bcrypt password hashing
+- ✅ Role-based authorization
+- ✅ Admin dashboard/features
+- ✅ Manager dashboard/features
+- ✅ Student dashboard/features
+- ✅ Project management
+- ✅ Student applications
+- ✅ Application approval and rejection
+- ✅ Project membership
+- ✅ Task assignment
+- ✅ Task tracking
+- ✅ Student submissions
+- ✅ Notifications
+- ✅ Comments and collaboration
+- ✅ Analytics and dashboard functionality
 
-### Demo credentials (seed data only)
+---
 
-| Role | Email | Password |
-| --- | --- | --- |
-| Admin | `admin@impacthub.com` | `admin123` |
-| Manager | `manager@impacthub.com` | `manager123` |
-| Student | `maya.student@impacthub.test` | `Student123!` |
+🎯 Problem Solved
 
-## Verification commands
+Students often struggle to find meaningful projects and volunteer opportunities where they can gain practical experience.
 
-```bash
-cd backend && npm test
-cd frontend && npm run lint && npm run build
-```
+ImpactHub solves this problem by providing a platform where:
 
-## Demo flow for judging
+- 🎓 Students can discover and apply for projects.
+- 👨‍💼 Managers can create and manage projects.
+- 👑 Administrators can monitor and control the platform.
 
-1. Open the landing page and browse approved projects.
-2. Sign in as a seeded student and apply to a project.
-3. Sign in as that project’s manager; approve the application and assign a task.
-4. Return as the student; update the task, submit work, and view notifications.
-5. Return as manager; review the submission to complete the task.
-6. Sign in as admin; review real counts, user management, and pending-project moderation.
+This creates a complete ecosystem for project collaboration, volunteer management, and student skill development.
 
-The seed script prints the fake/demo credentials it creates. Do not use those credentials outside a demo environment.
+---
 
-## API overview
+🏆 Hackathon Project
 
-- `/api/auth` — register, login, current user, profile updates
-- `/api/projects` — public discovery plus protected project management
-- `/api/applications` — student applications and manager reviews
-- `/api/tasks` and `/api/submissions` — assignment, work status, submissions, and review
-- `/api/comments` and `/api/notifications` — community interaction and inbox
-- `/api/admin` — analytics, moderation, users, and platform management
+ImpactHub was developed as a full-stack hackathon project.
 
-## Deployment
+The project demonstrates practical implementation of:
 
-Set `VITE_API_URL` to the deployed API URL ending in `/api`, set `CLIENT_ORIGIN` to the deployed frontend origin, and use a production MongoDB URI and strong JWT secret. Never commit `.env` files or real credentials.
+- Frontend Development
+- Backend Development
+- REST APIs
+- Database Integration
+- Authentication
+- Authorization
+- Role-Based Access Control
+- Project Management Workflows
 
-## Future improvements
+---
 
-Email/push notifications, audit logs, paginated administrative tables, richer impact metrics, and integration tests backed by an isolated MongoDB instance.
+👨‍💻 Developer
+
+Ahmed Sulman
+
+Full-Stack Web Development Project
+
+---
+
+⭐ Final Project Highlights
+
+🔥 Real Frontend and Backend Communication
+
+🗄️ MongoDB Atlas Database Integration
+
+🧭 Database Accessible Through MongoDB Compass
+
+🔐 JWT Authentication and Secure Password Hashing
+
+👑 Admin Role
+
+👨‍💼 Manager Role
+
+🎓 Student Role
+
+📋 Complete Project → Application → Approval → Task → Submission Workflow
+
+🧪 API Testing with Thunder Client
+
+🚀 A Complete Full-Stack Student Project & Volunteer Management Platform
+
+---
+
+⭐ If you like this project, please consider giving the repository a star!
+
