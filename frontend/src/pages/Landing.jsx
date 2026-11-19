@@ -7,8 +7,8 @@ import ProjectCard from "../components/projects/ProjectCard";
 import Avatar from "../components/ui/Avatar";
 import ProjectImage from "../components/ui/ProjectImage";
 import teamImage from "../assets/community-team.jpg";
-import { landingStats, howItWorks, testimonials } from "../data/mockData";
-import { getProjects } from "../services/projects";
+import { howItWorks, testimonials } from "../data/mockData";
+import { getProjects, getPublicStats } from "../services/projects";
 
 const heroImg = teamImage;
 
@@ -23,9 +23,11 @@ const stepIcons = [FiSearch, FiClipboard, FiUsers, FiAward];
 
 const Landing = () => {
   const [featured, setFeatured] = useState([]);
+  const [stats, setStats] = useState({ projects: 0, activeProjects: 0, completedProjects: 0, volunteers: 0 });
 
   useEffect(() => {
     getProjects().then((projects) => setFeatured(projects.slice(0, 3))).catch(() => setFeatured([]));
+    getPublicStats().then(setStats).catch(() => setStats({ projects: 0, activeProjects: 0, completedProjects: 0, volunteers: 0 }));
   }, []);
 
   return (
@@ -69,7 +71,12 @@ const Landing = () => {
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {landingStats.map((s, i) => (
+          {[
+            { label: "Projects", value: stats.projects, icon: "📋" },
+            { label: "Active projects", value: stats.activeProjects, icon: "🌱" },
+            { label: "Volunteers", value: stats.volunteers, icon: "🙌" },
+            { label: "Completed projects", value: stats.completedProjects, icon: "✅" },
+          ].map((s, i) => (
             <div key={s.label} className="market-card rounded-xl p-6 animate-fade-in" style={{ animationDelay: `${i * 100}ms` }}>
               <span className="text-2xl">{s.icon}</span>
               <p className="mt-2 text-2xl font-extrabold text-slate-900 dark:text-white">{s.value}</p>

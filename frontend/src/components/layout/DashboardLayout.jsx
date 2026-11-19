@@ -22,6 +22,7 @@ const NAV = {
   ],
   manager: [
     { to: "/dashboard/manager", label: "Dashboard", icon: FiGrid, end: true },
+    { to: "/score-board", label: "Score board", icon: FiAward },
     { to: "/discover", label: "Discover", icon: FiSearch },
     { to: "/my-projects", label: "My Projects", icon: FiFolder },
     { to: "/projects/new", label: "Create Project", icon: FiPlus },
@@ -32,6 +33,7 @@ const NAV = {
   ],
   admin: [
     { to: "/dashboard/admin", label: "Dashboard", icon: FiGrid, end: true },
+    { to: "/score-board", label: "Score board", icon: FiAward },
     { to: "/discover", label: "All Projects", icon: FiSearch },
     { to: "/my-projects", label: "Projects", icon: FiFolder },
     { to: "/applications", label: "Applications", icon: FiClipboard },

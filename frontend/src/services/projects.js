@@ -15,6 +15,11 @@ export const getProjects = async (params) => {
   return data.data.projects.map(normalizeProject);
 };
 
+export const getPublicStats = async () => {
+  const { data } = await api.get("/projects/stats");
+  return data.data.stats;
+};
+
 export const getProject = async (id) => {
   const { data } = await api.get(`/projects/${id}`);
   return normalizeProject(data.data.project);

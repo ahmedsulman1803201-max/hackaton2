@@ -4,6 +4,7 @@ const { projectAssetsUpload, handleMulterError } = require("../config/multer");
 const {
   createProject,
   getProjects,
+  getPublicStats,
   getProjectById,
   updateProject,
   deleteProject,
@@ -16,6 +17,7 @@ const router = express.Router();
 // below, so the public catalogue can use the same database records as signed-in
 // users instead of browser-only demo data.
 router.get("/", getProjects);
+router.get("/stats", getPublicStats);
 router.get("/:id", getProjectById);
 // Manager-uploaded folders and files are shared project resources.  Keep this
 // read endpoint public so every visitor can browse them; write operations stay

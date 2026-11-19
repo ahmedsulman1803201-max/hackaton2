@@ -18,25 +18,29 @@ ImpactHub uses a real Frontend + Backend + REST API + MongoDB database architect
 
 💻 Run Frontend
 
-Open the frontend folder in your terminal and run:
+In one terminal, start the frontend:
 
-npm i
+```bash
+cd frontend
+npm install
 npm run dev
+```
 
-After starting the development server, open the URL shown in your terminal in the browser.
+Open the Vite URL printed in the terminal (normally `http://localhost:5173`).
 
 ---
 
 ⚙️ Run Backend
 
-Open the backend folder in your terminal and run:
+In a second terminal, start the project API:
 
-npm i
-npx nodemon
+```bash
+cd backend
+npm install
+npm run dev
+```
 
-The backend server will start and connect with the configured database.
-
-«Note: Depending on your backend configuration, you may need to run a specific entry file, such as "npx nodemon server.js" or "npx nodemon index.js".»
+`npm run dev` starts `server.js`, connects to the MongoDB database configured by `MONGO_URI`, and serves the API on port 5000. The separate `index.js` file is an older shop API and is not used by this frontend.
 
 ---
 
@@ -339,9 +343,11 @@ Create a ".env" file in the backend folder.
 
 Example:
 
-MONGODB_URI=your_mongodb_connection_string
+MONGO_URI=mongodb://127.0.0.1:27017/impacthub
 JWT_SECRET=your_jwt_secret
 PORT=5000
+
+The backend reads `MONGO_URI` (not `MONGODB_URI`). For MongoDB Atlas, replace the local URI with your Atlas connection string. Create `backend/.env` from `backend/.env.example`; never commit real credentials. The API health endpoint is `http://localhost:5000/api/health`.
 
 
 

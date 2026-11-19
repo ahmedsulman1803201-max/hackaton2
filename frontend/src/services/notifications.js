@@ -7,6 +7,9 @@ const TITLES = {
   APPLICATION_REJECTED: "Application declined",
   TASK_ASSIGNED: "Task assigned",
   TASK_STATUS_UPDATED: "Task updated",
+  TASK_SUBMITTED: "Submission received",
+  TASK_APPROVED: "Submission reviewed",
+  TASK_REJECTED: "Resubmission requested",
   COMMENT_POSTED: "New discussion post",
   COMMENT_REPLY: "New reply",
 };
@@ -17,6 +20,9 @@ const ICONS = {
   APPLICATION_REJECTED: "application",
   TASK_ASSIGNED: "task",
   TASK_STATUS_UPDATED: "task",
+  TASK_SUBMITTED: "task",
+  TASK_APPROVED: "task",
+  TASK_REJECTED: "task",
   COMMENT_POSTED: "comment",
   COMMENT_REPLY: "comment",
 };
@@ -32,6 +38,9 @@ export const notificationLink = (notification) => {
       return "/applications";
     case "TASK_ASSIGNED":
     case "TASK_STATUS_UPDATED":
+    case "TASK_SUBMITTED":
+    case "TASK_APPROVED":
+    case "TASK_REJECTED":
       return projectId ? `/projects/${projectId}/tasks` : "/tasks";
     case "COMMENT_POSTED":
     case "COMMENT_REPLY":

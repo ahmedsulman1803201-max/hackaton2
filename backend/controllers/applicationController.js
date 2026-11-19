@@ -2,6 +2,7 @@ const Application = require("../models/Application");
 const Project = require("../models/Project");
 const User = require("../models/User");
 const createNotification = require("../utils/createNotification");
+const { notifyAdmins } = createNotification;
 
 const createApplication = async (req, res) => {
   try {
@@ -51,6 +52,12 @@ const createApplication = async (req, res) => {
 
     await createNotification({
       recipient: projectExists.createdBy,
+      type: "APPLICATION_RECEIVED",
+      message: `New application received for ${projectExists.title}`,
+      relatedProject: projectExists._id,
+      relatedApplication: application._id,
+    });
+    await notifyAdmins({
       type: "APPLICATION_RECEIVED",
       message: `New application received for ${projectExists.title}`,
       relatedProject: projectExists._id,

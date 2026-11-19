@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const Project = require("../models/Project");
 const createNotification = require("../utils/createNotification");
+const { notifyAdmins } = createNotification;
 
 const canManageTask = async (user, task) => {
   if (user.role === "admin") return true;
@@ -91,6 +92,12 @@ const createSubmission = async (req, res) => {
       relatedProject: taskExists.project,
       relatedTask: taskExists._id,
     });
+    await notifyAdmins({
+      type: "TASK_SUBMITTED",
+      message: `${isResubmission ? "Corrected work was resubmitted" : "Work was submitted"} for "${taskExists.title}"`,
+      relatedProject: taskExists.project,
+      relatedTask: taskExists._id,
+    });
 
     await submission.populate("task", "title description");
     await submission.populate("volunteer", "name email");
@@ -129,6 +136,7 @@ const acceptSubmission = async (req, res) => {
     volunteerScore.updateLevel();
     await volunteerScore.save();
     await createNotification({ recipient: submission.volunteer, type: "TASK_APPROVED", message: `Your submission for \"${task.title}\" was accepted`, relatedProject: task.project, relatedTask: task._id });
+    await notifyAdmins({ type: "TASK_APPROVED", message: `Submission accepted for \"${task.title}\"`, relatedProject: task.project, relatedTask: task._id });
     await submission.populate("task", "title description maxScore");
     await submission.populate("volunteer", "name email");
     await submission.populate("scoredBy", "name email");
@@ -158,7 +166,7 @@ const getSubmissions = async (req, res) => {
     }
 
     const submissions = await TaskSubmission.find(filter)
-      .populate("task", "title description maxScore")
+      .populate({ path: "task", select: "title description maxScore project", populate: { path: "project", select: "title" } })
       .populate("volunteer", "name email")
       .populate("scoredBy", "name email")
       .sort({ createdAt: -1 });
@@ -278,6 +286,7 @@ const scoreSubmission = async (req, res) => {
       relatedProject: task.project,
       relatedTask: task._id,
     });
+    await notifyAdmins({ type: "TASK_APPROVED", message: `Score assigned for \"${task.title}\": ${score}/${task.maxScore}`, relatedProject: task.project, relatedTask: task._id });
 
     await submission.populate("volunteer", "name email");
     await submission.populate("scoredBy", "name email");
@@ -328,6 +337,7 @@ const requestResubmission = async (req, res) => {
     await task.save();
 
     await createNotification({ recipient: submission.volunteer, type: "TASK_REJECTED", message: `Your submission for \"${task.title}\" needs changes: ${submission.feedback}`, relatedProject: task.project, relatedTask: task._id });
+    await notifyAdmins({ type: "TASK_REJECTED", message: `Resubmission requested for \"${task.title}\"`, relatedProject: task.project, relatedTask: task._id });
 
     return res.status(200).json({
       success: true,

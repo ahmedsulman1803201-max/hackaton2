@@ -1,4 +1,5 @@
 const Project = require("../models/Project");
+const User = require("../models/User");
 const mongoose = require("mongoose");
 const fs = require("fs");
 const path = require("path");
@@ -130,6 +131,25 @@ const getProjects = async (req, res) => {
   } catch (error) {
     console.error("Get projects error:", error);
     return res.status(500).json({ success: false, message: "Server error fetching projects" });
+  }
+};
+
+const getPublicStats = async (req, res) => {
+  try {
+    const [projects, activeProjects, completedProjects, volunteers] = await Promise.all([
+      Project.countDocuments(),
+      Project.countDocuments({ status: { $in: ["approved", "active"] } }),
+      Project.countDocuments({ status: "completed" }),
+      User.countDocuments({ role: "student" }),
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      data: { stats: { projects, activeProjects, completedProjects, volunteers } },
+    });
+  } catch (error) {
+    console.error("Get public stats error:", error);
+    return res.status(500).json({ success: false, message: "Server error fetching platform statistics" });
   }
 };
 
@@ -275,6 +295,7 @@ const deleteProject = async (req, res) => {
 module.exports = {
   createProject,
   getProjects,
+  getPublicStats,
   getProjectById,
   updateProject,
   deleteProject,

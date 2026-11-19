@@ -10,6 +10,7 @@ import ProjectForm from "./pages/ProjectForm";
 import DashboardRouter from "./pages/DashboardRouter";
 import StudentDashboard from "./pages/dashboards/StudentDashboard";
 import ManagerDashboard from "./pages/dashboards/ManagerDashboard";
+import ScoreBoard from "./pages/ScoreBoard";
 import AdminDashboard from "./pages/dashboards/AdminDashboard";
 import MyProjects from "./pages/MyProjects";
 import VolunteerApplications from "./pages/VolunteerApplications";
@@ -40,6 +41,7 @@ const App = () => (
       <Route path="/dashboard/student" element={<RequireRole roles={["student"]}><StudentDashboard /></RequireRole>} />
       <Route path="/dashboard/user" element={<Navigate to="/dashboard/student" replace />} />
       <Route path="/dashboard/manager" element={<RequireRole roles={["manager"]}><ManagerDashboard /></RequireRole>} />
+      <Route path="/score-board" element={<RequireRole roles={["manager", "admin"]}><ScoreBoard /></RequireRole>} />
       <Route path="/dashboard/admin" element={<RequireRole roles={["admin"]}><AdminDashboard /></RequireRole>} />
       <Route path="/my-projects" element={<MyProjects />} />
       <Route path="/tasks" element={<MyProjects />} />
