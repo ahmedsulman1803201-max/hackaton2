@@ -26,7 +26,7 @@ npm install
 npm run dev
 ```
 
-Open the Vite URL printed in the terminal (normally `http://localhost:5173`).
+Open the Vite URL printed in the terminal (normally `http://localhost:5173`). Keep this terminal running.
 
 ---
 
@@ -40,7 +40,7 @@ npm install
 npm run dev
 ```
 
-`npm run dev` starts `server.js`, connects to the MongoDB database configured by `MONGO_URI`, and serves the API on port 5000. The separate `index.js` file is an older shop API and is not used by this frontend.
+`npm run dev` starts `server.js`, connects to the MongoDB database configured by `MONGO_URI`, and serves the API on port 5000. Keep this terminal running alongside the frontend: the Discover page loads projects from this API and MongoDB. If the backend is stopped, the page cannot load projects. The `dev` command runs Node directly so it works in restricted Windows environments where nodemon cannot spawn its watcher. The separate `index.js` file is an older shop API and is not used by this frontend.
 
 ---
 

@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
+    "dev": "node server.js",
     "test": "node --test tests/admin.routes.test.js",
     "seed:demo": "node scripts/seed-demo-data.js",
     "make-admin": "node scripts/make-admin.js",
