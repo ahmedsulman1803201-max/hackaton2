@@ -17,7 +17,7 @@ const scoreRoutes = require("../routes/scoreRoutes");
 
 const app = express();
 app.use(cors({
-  origin: (process.env.CLIENT_ORIGIN || "").split(",").filter(Boolean),
+  origin: (process.env.CLIENT_ORIGIN || "https://impacthub-three.vercel.app").split(",").filter(Boolean),
   credentials: true,
 }));
 app.use(express.json({ limit: "1mb" }));
