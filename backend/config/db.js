@@ -4,19 +4,25 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const mongoose = require("mongoose");
 
+let connectionPromise;
+
 const connectDB = async () => {
+  if (mongoose.connection.readyState === 1) return mongoose.connection;
   if (!process.env.MONGO_URI) {
-    console.error("MongoDB connection error: MONGO_URI is not defined in backend/.env");
-    process.exit(1);
+    throw new Error("MONGO_URI is not defined in environment variables");
   }
 
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error("MongoDB connection error:", error.message);
-    process.exit(1);
+  if (!connectionPromise) {
+    connectionPromise = mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: 10000,
+    }).then((connection) => connection.connection)
+      .catch((error) => {
+        connectionPromise = null;
+        throw error;
+      });
   }
+
+  return connectionPromise;
 };
 
 module.exports = connectDB;
